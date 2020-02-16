@@ -30,23 +30,7 @@
 <div>
     <button id="refresh_data_button">刷新数据</button>
 </div>
-<% for(var i = 0;i < data.length; i++) { var ipSegment = data[i]; %>
-<!--ipSegment = {ip, count, data} -->
-<h2><%= ipSegment.ip %> (<%= ipSegment.count %>)</h2>
-<% for(var uk in ipSegment.data){ %>
-<% if (uk == 'location') continue; %>
-<!--uk = key, ipSegment.data[uk] = {oid,role,courses,mp4...}-->
-<h4><%= uk %></h4>
-<div class="user-line">
-    <%= ipSegment.data[uk].oid %>, <%= ipSegment.data[uk].role %>,
-    <% var courses = ipSegment.data[uk].courses; %>
-    <% if(courses){ %>
-    <%= Object.keys(courses).length %>
-    <% } %>
-</div>
-<% } %>
 
-<% } %>
 </body>
 </html>
 <script src="/javascripts/jquery.js"></script>

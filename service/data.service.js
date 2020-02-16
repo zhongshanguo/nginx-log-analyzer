@@ -162,6 +162,9 @@ const DataService = {
     get: () => {
         return db;
     },
+    set: (data) => {
+        db = data;
+    },
     getByIp: () => {
         let s = new Set();
         db.forEach(d => s.add(d.ip));

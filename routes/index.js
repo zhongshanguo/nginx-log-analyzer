@@ -11,10 +11,8 @@ router.post('/', function (req, res, next) {
 });
 
 // 按ip排
-router.get('/ip', function (req, res, next) {
+router.get('/', function (req, res, next) {
     let data = dataServer.getByIp();
-
-
     // let data = dataServer.get();
     // let ips = [];
     // for (var p in data.ipData) {
@@ -36,11 +34,11 @@ router.get('/ip', function (req, res, next) {
     // }
     // ips.sort((a, b) => b.count - a.count);
     //
-    // res.render('index', {data: ips});
+    res.render('index', {data: data});
 });
 
 router.get('/data', function (req, res, next) {
-    let data = dataServer.getByIp();
+    let data = dataServer.get();
     res.json(data);
 });
 
