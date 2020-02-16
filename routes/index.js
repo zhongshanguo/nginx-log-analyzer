@@ -9,4 +9,9 @@ router.post('/', function (req, res, next) {
     res.json({});
 });
 
+router.get('/', function (req, res, next) {
+    let data = dataServer.get();
+    res.render('index', {data: data});
+});
+
 module.exports = router;

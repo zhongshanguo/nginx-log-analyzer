@@ -41,6 +41,7 @@ const EntityUtil = {
             play: false
         };
         doc.ip = log.remote_addr || '-';
+        doc.location = log.location;
         doc.status = log.status;
         doc.method = log.method;
         doc.path = log.path;
