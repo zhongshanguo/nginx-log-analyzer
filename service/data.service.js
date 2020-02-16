@@ -63,7 +63,7 @@ function getIPUser(i, u) {
     user.role = events[0].role;
     user.play = 0;
     user.count = events.length;
-    events.forEach(v => user.play + (v.play ? v.play : 0));
+    events.forEach(v => user.play + (v.play ? 1 : 0));
     user.courses = [];
     let cSet = new Set();
     events.filter(v => v.rno)
@@ -105,6 +105,7 @@ function getIPUser(i, u) {
     user.mp4 = user.filenames.filter(f => f.mp4).length;
     user.mp3 = user.filenames.filter(f => f.mp3).length;
     user.pdf = user.filenames.filter(f => f.pdf).length;
+
     return user;
 }
 
@@ -127,108 +128,6 @@ function getIp(i) {
 }
 
 const DataService = {
-    // push: (host, nginxAccessLog) => {
-    //     var doc = entityUtil.transform(nginxAccessLog);
-    //     setIpCount(doc.ip);
-    //     setUserCount(doc.user_id);
-    //     setOrgancount(doc.oid);
-    //     let ipSegment = {};
-    //     if (DATA.origin[doc.ip]) {
-    //         ipSegment = DATA.origin[doc.ip];
-    //     }
-    //     else {
-    //         ipSegment = {};
-    //         ipSegment.location = doc.location;
-    //         DATA.origin[doc.ip] = ipSegment;
-    //     }
-    //
-    //     let userSegment = ipSegment[doc.user_id];
-    //     if (!userSegment) {
-    //         userSegment = {};
-    //         ipSegment[doc.user_id] = userSegment;
-    //     }
-    //
-    //     userSegment.oid = doc.oid;
-    //     userSegment.role = Math.max(userSegment.role, doc.role);
-    //     let playTime = 0;
-    //     if (userSegment.play) {
-    //         playTime++;
-    //     }
-    //     userSegment.play = playTime;
-    //     if (doc.rno) {
-    //         if (!userSegment.courses) {
-    //             userSegment["courses"] = {};
-    //         }
-    //         userSegment["courses"][doc.rno] = new Date().getTime();
-    //     }
-    //
-    //     if (doc.mp4) {
-    //         if (!userSegment.mp4) {
-    //             userSegment["mp4"] = {};
-    //         }
-    //         userSegment["mp4"][doc.filename] = new Date().getTime();
-    //     }
-    //
-    //     if (doc.mp3) {
-    //         if (!userSegment.mp3) {
-    //             userSegment["mp3"] = {};
-    //         }
-    //         userSegment["mp3"][doc.filename] = new Date().getTime();
-    //     }
-    //
-    //     if (doc.pdf) {
-    //         if (!userSegment.pdf) {
-    //             userSegment["pdf"] = {};
-    //         }
-    //         userSegment["pdf"][doc.filename] = new Date().getTime();
-    //     }
-    //     if (doc.doc) {
-    //         if (!userSegment.doc) {
-    //             userSegment["doc"] = {};
-    //         }
-    //         userSegment["doc"][doc.filename] = new Date().getTime();
-    //     }
-    //     if (doc.ppt) {
-    //         if (!userSegment.ppt) {
-    //             userSegment["ppt"] = {};
-    //         }
-    //         userSegment["ppt"][doc.filename] = new Date().getTime();
-    //     }
-    //     if (doc.xls) {
-    //         if (!userSegment.xls) {
-    //             userSegment["xls"] = {};
-    //         }
-    //         userSegment["xls"][doc.filename] = new Date().getTime();
-    //     }
-    //     if (doc.other) {
-    //         if (!userSegment.other) {
-    //             userSegment["other"] = {};
-    //         }
-    //         userSegment["other"][doc.filename] = new Date().getTime();
-    //     }
-    //     if (doc.referer && doc.referer.md5) {
-    //         if (!userSegment.referer) {
-    //             userSegment["referer"] = {};
-    //         }
-    //         if (!userSegment.referer[doc.referer.md5]) {
-    //             userSegment.referer[doc.referer.md5] = {};
-    //         }
-    //         userSegment.referer[doc.referer.md5] = {source: doc.referer.source, time: doc.referer.time};
-    //     }
-    //     if (doc.resource_id) {
-    //         if (!userSegment.resources) {
-    //             userSegment["resources"] = {};
-    //         }
-    //         userSegment["resources"][doc.resource_id] = new Date().getTime();
-    //     }
-    //
-    // },
-    // get: () => {
-    //     return DATA;
-    // },
-    // set: (values) => {
-    //     DATA = values;
-    // },
     pushDB: (host, nginxAccessLog) => {
         let doc = entityUtil.transform2(host, nginxAccessLog);
         if (filterUtil.pathFilter(doc)) {
