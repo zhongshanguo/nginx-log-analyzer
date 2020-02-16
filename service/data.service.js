@@ -15,7 +15,6 @@ function getIPUser(i, u) {
     user.role = events[0].role;
     user.play = 0;
     user.count = events.length;
-    events.forEach(v => user.play + (v.play ? 1 : 0));
     user.courses = [];
     let cSet = new Set();
     events.filter(v => v.rno)
@@ -85,7 +84,6 @@ const DataService = {
         let doc = entityUtil.transform2(host, nginxAccessLog);
         if (filterUtil.pathFilter(doc)) {
             db.push(doc);
-            console.log(db.length);
         }
     },
     get: () => {
@@ -109,7 +107,7 @@ const DataService = {
     },
     getFilterIp: (ip) => {
         let ipContent = getIp(ip);
-        let ipData = db.filter(d => d.ip == ip);
+        let ipData = db.filter(d => d.ip == ip && !d.play);
         ipData.sort((a, b) => b.time - a.time);
         return {ipContent, ipData};
     }

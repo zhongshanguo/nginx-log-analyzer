@@ -1,52 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        h2, h4 {
-            padding: 0px;
-            margin: 0px;
-        }
-
-        h2 {
-            font-weight: bold;
-            font-size: 16px;
-            color: green;
-            padding: 10px 0px 20px 10px;
-        }
-
-        h4 {
-            font-weight: bold;
-            font-size: 14px;
-            color: #ff2128;
-            padding: 10px 0px 5px 60px;
-        }
-
-        .user-line {
-            padding-left: 60px;
-            font-size: 9pt;
-            color: #3c3c3c;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
 </head>
 <body>
-<h1>用户列表</h1>
+<h1>IP列表</h1>
 <div>
     <% for(var i = 0;i < data.length;i++){
         var ipSegment = data[i]; %>
-    <h2><a href="/ip/<%= ipSegment.ip %>"><%= ipSegment.ip %></a>
+    <h2><a href="/ip/<%= ipSegment.ip %>"><%= ipSegment.ip %></a></h2>
+    <div class="ip-line">
         <% if(ipSegment.location){ %>
         <%= ipSegment.location %>
         <% } %>
-    </h2>
+    </div>
     <% for(var m = 0;m < ipSegment.users.length; m++){ %>
     <% var user = ipSegment.users[m]; %>
     <h4><%= user.user_id %> </h4>
     <div class="user-line">
-        count=<%= user.count %>, role=<%= user.role %>, oid=<%= user.oid %>,
-        <span>course: <%= user.courses.length %></span>
-        <span>resource: <%= user.resources.length %></span>
+        count=<%= user.count %>
+        <% if(user.role){ %>
+        <span>role=<%= user.role %></span>
+        <% } %>
+        <% if(user.oid){ %>
+        <span>oid=<%= user.oid %></span>
+        <% } %>
+        <% if(user.courses.length){ %>
+        <span>course=<%= user.courses.length %></span>
+        <% } %>
+        <% if(user.resources.length){ %>
+        <% if(user.resources.length){ %>
+        <span>resource=<%= user.resources.length %></span>
+        <% } %>
+        <% } %>
+        <% if(user.play){ %>
+        <span>play=<%= user.play %></span>
+        <% } %>
         <% if(user.mp4){ %>
-        <span>mp4: <%= user.mp4 %></span>
+        <span>mp4=<%= user.mp4 %></span>
         <% } %>
         <% if(user.mp3){ %>
         <span>mp3: <%= user.mp3 %></span>

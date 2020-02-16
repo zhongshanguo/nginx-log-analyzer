@@ -1,8 +1,38 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+h1, h2, h4 {
+    padding: 0px;
+    margin: 0px;
 }
 
-a {
-  color: #00B7FF;
+h4 {
+    font-weight: bold;
+    font-size: 14px;
+    color: #ff2128;
+    padding: 10px 0px 0px 60px;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 16px;
+    color: green;
+    padding: 20px 0px 0px 20px;
+}
+
+.user-line {
+    padding-left: 80px;
+    font-size: 9pt;
+    color: #3c3c3c;
+}
+
+.event-line {
+    font-size: 9pt;
+    color: #3c3c3c;
+    padding: 5px 0px 5px 0px;
+    word-break: break-word; /* 文本行的任意字内断开 */
+    word-wrap: break-word; /* IE */
+}
+
+.ip-line {
+    padding: 0px 0px 0px 20px;
+    font-size: 12px;
+    color: green;
 }

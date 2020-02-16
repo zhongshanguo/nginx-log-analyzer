@@ -4,6 +4,7 @@ const FilterUtil = {
             '/stylesheets/',
             '/javascripts/',
             '/images/',
+            '/image/',
             '/api/translate',
             '/pdfweb/',
             '/private/',
