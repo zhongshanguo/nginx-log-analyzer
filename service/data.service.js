@@ -105,7 +105,6 @@ function getIPUser(i, u) {
     user.mp4 = user.filenames.filter(f => f.mp4).length;
     user.mp3 = user.filenames.filter(f => f.mp3).length;
     user.pdf = user.filenames.filter(f => f.pdf).length;
-
     return user;
 }
 
@@ -124,6 +123,7 @@ function getIp(i) {
         count += user.count;
         users.push(user);
     }
+    users.sort((a, b) => b.count - a.count);
     return {ip: i, count: count, users: users};
 }
 
@@ -151,7 +151,6 @@ const DataService = {
             let ipContent = getIp(i);
             ips.push(ipContent);
         }
-
         return ips;
     },
     getFilterIp: (ip) => {
