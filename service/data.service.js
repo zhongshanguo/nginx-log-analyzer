@@ -145,10 +145,10 @@ const DataService = {
 
     },
     get: () => {
-        return data;
+        return DATA;
     },
     set: (values) => {
-        data = values;
+        DATA = values;
     }
 };
 module.exports = DataService;
