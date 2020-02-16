@@ -8,8 +8,7 @@ const FilterUtil = {
             '/pdfweb/',
             '/private/',
             '/favicon.ico',
-            '/static/',
-            '/api/logger/'
+            '/static/'
         ];
         if (log.status == 304) {
             return false;
