@@ -56,15 +56,14 @@ const DataService = {
         setIpCount(doc.ip);
         setUserCount(doc.user_id);
         setOrgancount(doc.oid);
-        let data = DATA.origin;
         let ipSegment = {};
-        if (data[doc.ip]) {
-            ipSegment = data[doc.ip];
+        if (DATA.origin[doc.ip]) {
+            ipSegment = DATA.origin[doc.ip];
         }
         else {
             ipSegment = {};
             ipSegment.location = doc.location;
-            data[doc.ip] = ipSegment;
+            DATA.origin[doc.ip] = ipSegment;
         }
 
         let userSegment = ipSegment[doc.user_id];
