@@ -1,4 +1,5 @@
 const entityUtil = require('../util/entity.util');
+const filterUtil = require('../util/filter.util');
 
 // let DATA = {
 //     ipData: {},
@@ -158,9 +159,10 @@ const DataService = {
     pushDB: (host, nginxAccessLog) => {
         // console.log('start transform');
         let doc = entityUtil.transform2(nginxAccessLog);
-        // console.log(doc);
-        db.push(doc);
-        console.log(db.length);
+        if (filterUtil.pathFilter(doc)) {
+            db.push(doc);
+            console.log(db.length);
+        }
     },
     get: () => {
         return db;
@@ -169,21 +171,77 @@ const DataService = {
         db = data;
     },
     getByIp: () => {
-        let s = new Set();
-        db.forEach(d => s.add(d.ip));
+        // 最终返回的数据
         let ips = [];
 
+        // 所有ip的集合
+        let s = new Set();
+        db.forEach(d => s.add(d.ip));
+        // 收集每个ip的数据
         for (let i of s) {
-            let userSet = new Set();
-            let lines = db.filter(d => d.ip === i);
-            lines.forEach(d => userSet.add(d.user_id));
 
+            // 这个ip下的所有用户数据
             let users = [];
+
+            // 有多少个user_id
+            let userSet = new Set();
+            db.filter(d => d.ip === i).forEach(d => userSet.add(d.user_id));
+
+            let count = 0;
+            // 收集每个user_id数据
             for (let u of userSet) {
-                let x = db.filter(d => d.ip == i && d.user_id == u);
-                users.push({user_id: u, list: x});
+                let user = {};
+                // 每个 userId有多少条数据
+                let events = db.filter(d => d.ip == i && d.user_id == u);
+                events.sort((a, b) => b.time - a.time);
+                user.user_id = events[0].user_id;
+                user.oid = events[0].oid;
+                user.role = events[0].role;
+                user.play = 0;
+                events.forEach(v => user.play + (v.play ? v.play : 0));
+                user.courses = [];
+                let cSet = new Set();
+                events.filter(v => v.rno)
+                    .forEach(v => {
+                        if (cSet.add(v.rno)) {
+                            user.courses.push({rno: v.rno, time: v.time});
+                        }
+                    });
+                user.filenames = [];
+                cSet = new Set();
+                events.filter(v => v.filename)
+                    .forEach(v => {
+                        if (cSet.add(v.filename)) {
+                            user.filenames.push({
+                                filename: v.filename,
+                                time: v.time,
+                                mp4: v.mp4,
+                                mp3: v.mp3,
+                                pdf: v.pdf,
+                                doc: v.doc,
+                                ppt: v.ppt,
+                                xls: v.xls,
+                                other: v.other
+                            });
+                        }
+                    });
+                user.resources = [];
+                cSet = new Set();
+                events.filter(v => v.resource_id)
+                    .forEach(v => {
+                        if (cSet.add(v.resource_id)) {
+                            user.resources.push({resource_id: v.resource_id, time: v.time});
+                        }
+                    });
+                user.play = events.filter(v => v.play).length;
+                user.mp4 = user.filenames.filter(f => f.mp4).length;
+                user.mp3 = user.filenames.filter(f => f.mp3).length;
+                user.pdf = user.filenames.filter(f => f.pdf).length;
+                count += events.length;
+                users.push(user);
             }
-            ips.push({ip: i, count: lines.count, users: users});
+
+            ips.push({ip: i, count: count, users: users});
         }
 
         return ips;

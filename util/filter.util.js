@@ -5,7 +5,8 @@ const FilterUtil = {
             '/javascripts/',
             '/images/',
             '/api/translate',
-            '/pdfweb/'
+            '/pdfweb/',
+            '/private/'
         ];
         if (log.status == 304) {
             return false;

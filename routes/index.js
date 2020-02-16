@@ -13,27 +13,7 @@ router.post('/', function (req, res, next) {
 // 按ip排
 router.get('/', function (req, res, next) {
     let data = dataServer.getByIp();
-    // let data = dataServer.get();
-    // let ips = [];
-    // for (var p in data.ipData) {
-    //     let usersObj = data.origin[p];
-    //     let location = '';
-    //     let users = [];
-    //     Object.keys(usersObj).forEach(k => {
-    //         if (k == 'location' && usersObj[k] && !location) {
-    //             location = usersObj[k];
-    //         }
-    //         else {
-    //             // k == user_id
-    //             let u = formatUtil.formatUser(usersObj[k]);
-    //             u.user_id = k;
-    //             users.push(u);
-    //         }
-    //     });
-    //     ips.push({ip: p, location: location, count: data.ipData[p], users: users});
-    // }
-    // ips.sort((a, b) => b.count - a.count);
-    //
+    data.sort((a, b) => b.count - a.count);
     res.render('index', {data: data});
 });
 

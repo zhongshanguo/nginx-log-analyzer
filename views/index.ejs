@@ -30,7 +30,16 @@
 <div>
     <button id="refresh_data_button">刷新数据</button>
 </div>
-
+<div>
+    <% for(var i = 0;i < data.length;i++){
+        var ipSegment = data[i]; %>
+    <h2> <%= ipSegment.ip %></h2>
+    <% for(var m = 0;m < ipSegment.users;m++){ %>
+    <% var user = ipSegment.users[m]; %>
+    <h4><%= user.role %></h4>
+    <% } %>
+    <% } %>
+</div>
 </body>
 </html>
 <script src="/javascripts/jquery.js"></script>

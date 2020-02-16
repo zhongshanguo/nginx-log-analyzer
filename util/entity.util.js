@@ -110,7 +110,7 @@ const EntityUtil = {
         if (ext == "other") doc.other = ext;
         let play = urlUtil.isTick(log);
         if (play) doc.play = play;
-        doc.time = new Date();
+        doc.time = new Date().getTime();
         return doc;
     }
 };
