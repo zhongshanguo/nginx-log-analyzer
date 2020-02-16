@@ -1,21 +1,24 @@
 const entityUtil = require('../util/entity.util');
 
-let data = {};
-let ipData = {};
-let userData = {};
-let organData = {};
+let data = {
+    ipData: {},
+    userData: {},
+    organData: {}
+
+};
 
 function setIpCount(ip) {
+
     if (!ip) {
         ip = "-";
     }
-    if (ipData[ip]) {
-        var v = ipData[ip];
+    if (data.ipData[ip]) {
+        var v = data.ipData[ip];
         v++;
-        ipData[ip] = v;
+        data.ipData[ip] = v;
     }
     else {
-        ipData[ip] = 1;
+        data.ipData[ip] = 1;
     }
 }
 
@@ -23,13 +26,13 @@ function setUserCount(user) {
     if (!user) {
         user = '-';
     }
-    if (userData[user]) {
-        var v = userData[user];
+    if (data.userData[user]) {
+        var v = data.userData[user];
         v++;
-        userData[user] = v;
+        data.userData[user] = v;
     }
     else {
-        userData[user] = 1;
+        data.userData[user] = 1;
     }
 }
 
@@ -37,13 +40,13 @@ function setOrgancount(oid) {
     if (!oid) {
         oid = '-';
     }
-    if (organData[oid]) {
-        var v = organData[oid];
+    if (data.organData[oid]) {
+        var v = data.organData[oid];
         v++;
-        organData[oid] = v;
+        data.organData[oid] = v;
     }
     else {
-        organData[oid] = 1;
+        data.organData[oid] = 1;
     }
 }
 
@@ -51,6 +54,8 @@ const DataService = {
     push: (host, nginxAccessLog) => {
         var doc = entityUtil.transform(nginxAccessLog);
         setIpCount(doc.ip);
+        setUserCount(doc.user_id);
+        setOrgancount(doc.oid);
 
         let ipSegment = {};
         if (data[doc.ip]) {
