@@ -27,27 +27,10 @@ const http = (method, url, data, traceId) => {
     return fetch(url, {method, headers, body})
         .then(response => {
             if (response.ok) {
-                // logger.request({
-                //     requestName: 'sub_request',
-                //     traceId,
-                //     method,
-                //     originalUrl: url,
-                //     statusCode: 200
-                // });
                 return response.json();
             }
             else {
                 let err = {status, statusText} = response;
-                // logger.request({
-                //     type: 'E',
-                //     requestName: 'sub_request',
-                //     traceId,
-                //     method,
-                //     originalUrl: url,
-                //     statusCode: response.statusCode,
-                //     params: body,
-                //     message: err
-                // });
                 return Promise.reject(err);
             }
         })
@@ -55,16 +38,6 @@ const http = (method, url, data, traceId) => {
             return json;
         })
         .catch(e => {
-            // logger.request({
-            //     type: 'E',
-            //     requestName: 'sub_request',
-            //     traceId,
-            //     method,
-            //     originalUrl: url,
-            //     statusCode: 500,
-            //     params: body,
-            //     message: e
-            // });
             Promise.reject(e);
         });
 };
