@@ -198,12 +198,14 @@ const DataService = {
                 user.oid = events[0].oid;
                 user.role = events[0].role;
                 user.play = 0;
+                user.count = events.length;
                 events.forEach(v => user.play + (v.play ? v.play : 0));
                 user.courses = [];
                 let cSet = new Set();
                 events.filter(v => v.rno)
                     .forEach(v => {
-                        if (cSet.add(v.rno)) {
+                        if (!cSet.has(v.rno)) {
+                            cSet.add(v.rno);
                             user.courses.push({rno: v.rno, time: v.time});
                         }
                     });
@@ -211,7 +213,8 @@ const DataService = {
                 cSet = new Set();
                 events.filter(v => v.filename)
                     .forEach(v => {
-                        if (cSet.add(v.filename)) {
+                        if (!cSet.has(v.filename)) {
+                            cSet.add(v.filename);
                             user.filenames.push({
                                 filename: v.filename,
                                 time: v.time,
@@ -229,7 +232,8 @@ const DataService = {
                 cSet = new Set();
                 events.filter(v => v.resource_id)
                     .forEach(v => {
-                        if (cSet.add(v.resource_id)) {
+                        if (!cSet.has(v.resource_id)) {
+                            cSet.add(v.resource_id);
                             user.resources.push({resource_id: v.resource_id, time: v.time});
                         }
                     });
