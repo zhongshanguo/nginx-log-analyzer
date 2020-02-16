@@ -24,19 +24,16 @@
         .user-line {
             padding-left: 60px;
             font-size: 9pt;
-            color: #ccc;
+            color: #3c3c3c;
         }
     </style>
 </head>
 <body>
 <h1>用户列表</h1>
 <div>
-    <button id="refresh_data_button">刷新数据</button>
-</div>
-<div>
     <% for(var i = 0;i < data.length;i++){
         var ipSegment = data[i]; %>
-    <h2> <%= ipSegment.ip %></h2>
+    <h2><a href="/ip/<%= ipSegment.ip %>"><%= ipSegment.ip %></a></h2>
     <% for(var m = 0;m < ipSegment.users.length; m++){ %>
     <% var user = ipSegment.users[m]; %>
     <h4><%= user.user_id %> </h4>

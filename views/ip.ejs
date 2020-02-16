@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h2, h4 {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        h4 {
+            font-weight: bold;
+            font-size: 16px;
+            color: green;
+            padding-left: 20px;
+        }
+
+        h2 {
+            font-weight: bold;
+            font-size: 14px;
+            color: #ff2128;
+            padding: 10px 0px 10px 60px;
+        }
+
+        .user-line {
+            padding-left: 60px;
+            font-size: 9pt;
+            color: #3c3c3c;
+        }
+
+        .event-line {
+            font-size: 9pt;
+            color: #3c3c3c;
+            padding: 5px 0px 5px 0px;
+        }
+    </style>
+</head>
+<body>
+<h1>IP: <%= data.ip %></h1>
+<p><%= data.location %></p>
+<table width="100%">
+    <tr>
+        <td width="50%" valign="top">
+            <% for(var m = 0;m < data.users.length; m++){ %>
+            <% var user = data.users[m]; %>
+            <h4><%= user.user_id %> </h4>
+            <div class="user-line">
+                count=<%= user.count %>, role=<%= user.role %>, oid=<%= user.oid %>,
+                <span>course: <%= user.courses.length %></span>
+                <span>resource: <%= user.resources.length %></span>
+                <% if(user.mp4){ %>
+                <span>mp4: <%= user.mp4 %></span>
+                <% } %>
+                <% if(user.mp3){ %>
+                <span>mp3: <%= user.mp3 %></span>
+                <% } %>
+                <% if(user.pdf){ %>
+                <span>pdf: <%= user.pdf %></span>
+                <% } %>
+                <% if(user.doc){ %>
+                <span>doc: <%= user.doc %></span>
+                <% } %>
+                <% if(user.ppt){ %>
+                <span>ppt: <%= user.ppt %></span>
+                <% } %>
+                <% if(user.xls){ %>
+                <span>xls: <%= user.xls %></span>
+                <% } %>
+                <% if(user.other){ %>
+                <span>other: <%= user.other %></span>
+                <% } %>
+            </div>
+            <% } %>
+        </td>
+        <td width="50%" valign="top">
+            <% for(var i = 0;i < data.events.length && i < 200;i++){ let e = data.events[i]; %>
+            <div class="event-line">
+                <%= e.user_id %>
+                <%= new Date(e.time).toLocaleTimeString() %>
+                <%= e.path %>
+            </div>
+            <% } %>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/pages/home.js"></script>

@@ -6,7 +6,10 @@ const FilterUtil = {
             '/images/',
             '/api/translate',
             '/pdfweb/',
-            '/private/'
+            '/private/',
+            '/favicon.ico',
+            '/static/',
+            '/api/logger/'
         ];
         if (log.status == 304) {
             return false;
