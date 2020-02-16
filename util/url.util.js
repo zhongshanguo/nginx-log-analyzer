@@ -32,7 +32,7 @@ const UrlUtil = {
             return "";
         }
         let path = log.path;
-        let m = path.match(/\/[a-f]{1,2}\/[\da-f\-]{36}\/(?<name>[^\?]+)/i);
+        let m = path.match(/\/[a-f]{1,2}\/[\da-f\-]{36}\/(?<name>[^\?\&]+)/i);
         if (m) {
             return m["groups"]["name"];
         }

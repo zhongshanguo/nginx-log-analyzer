@@ -79,8 +79,6 @@ const DataService = {
             playTime++;
         }
         userSegment.play = playTime;
-
-
         if (doc.rno) {
             if (!userSegment.courses) {
                 userSegment["courses"] = {};
@@ -140,6 +138,12 @@ const DataService = {
                 userSegment.referer[doc.referer.md5] = {};
             }
             userSegment.referer[doc.referer.md5] = {source: doc.referer.source, time: doc.referer.time};
+        }
+        if (doc.resource_id) {
+            if (!userSegment.resources) {
+                userSegment["resources"] = {};
+            }
+            userSegment["resources"][doc.resource_id] = new Date().getTime();
         }
 
     },

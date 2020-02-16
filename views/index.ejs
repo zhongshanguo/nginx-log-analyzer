@@ -20,7 +20,6 @@
             color: blue;
             padding-left: 40px;
         }
-
         .user-line {
             padding-left: 60px;
         }
@@ -31,24 +30,22 @@
 <div>
     <button id="refresh_data_button">刷新数据</button>
 </div>
-<% for(var i = 0;i < data.length;i++) { var ipSegment = data[i]; %>
-<h2><%= item %></h2>
-<% for(var user in ipSegment) { if(user != 'location') { %>
-<h4><%= user %></h4>
-<% let userSegment = ipSegment[user]; %>
+<% for(var i = 0;i < data.length; i++) { var ipSegment = data[i]; %>
+<!--ipSegment = {ip, count, data} -->
+<h2><%= ipSegment.ip %> (<%= ipSegment.count %>)</h2>
+<% for(var uk in ipSegment.data){ %>
+<% if (uk == 'location') continue; %>
+<!--uk = key, ipSegment.data[uk] = {oid,role,courses,mp4...}-->
+<h4><%= uk %></h4>
 <div class="user-line">
-    <span>机构代码: <%= userSegment.oid %> </span>
-    <span> 权限值: <%= userSegment.role %> </span>
-    <span>
-        播放时长:
-        <% userSegment.play ? userSegment.play * 5 : 0 %>
-        秒
-    </span>
-    <span>
-        课程数:
-    </span>
+    <%= ipSegment.data[uk].oid %>, <%= ipSegment.data[uk].role %>,
+    <% var courses = ipSegment.data[uk].courses; %>
+    <% if(courses){ %>
+    <%= Object.keys(courses).length %>
+    <% } %>
 </div>
-<% }} %>
+<% } %>
+
 <% } %>
 </body>
 </html>
