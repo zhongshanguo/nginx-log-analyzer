@@ -9,14 +9,8 @@ router.post('/', function (req, res, next) {
     res.json({});
 });
 
-router.get('/', function (req, res, next) {
-    let data = dataServer.get();
-    res.render('index', {data: data});
-});
+router.get('/pull/data', function (req, res, next) {
 
-router.get('/data', function (req, res, next) {
-    let data = dataServer.get();
-    res.json(data);
 });
 
 module.exports = router;
