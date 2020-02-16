@@ -20,6 +20,10 @@
             color: blue;
             padding-left: 40px;
         }
+
+        .user-line {
+            padding-left: 60px;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +34,19 @@
 <% for(var user in ipSegment) { if(user != 'location') { %>
 <h4><%= user %></h4>
 <% let userSegment = ipSegment[user]; %>
-
+<div class="user-line">
+    <span>机构代码: <%= userSegment.oid %> </span>
+    <span> 权限值: <%= userSegment.role %> </span>
+    <span>
+        播放时长:
+        <% userSegment.play ? userSegment.play * 5 : 0 %>
+        秒
+    </span>
+    <span>
+        课程数:
+        <% userSegment.courses ? userSegment.courses.keys.length : 0 %>
+    </span>
+</div>
 <% }} %>
 <% } %>
 </body>
