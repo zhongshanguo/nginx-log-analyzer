@@ -1,6 +1,6 @@
 const entityUtil = require('../util/entity.util');
 
-let data = {
+let DATA = {
     ipData: {},
     userData: {},
     organData: {},
@@ -12,13 +12,13 @@ function setIpCount(ip) {
     if (!ip) {
         ip = "-";
     }
-    if (data.ipData[ip]) {
-        var v = data.ipData[ip];
+    if (DATA.ipData[ip]) {
+        var v = DATA.ipData[ip];
         v++;
-        data.ipData[ip] = v;
+        DATA.ipData[ip] = v;
     }
     else {
-        data.ipData[ip] = 1;
+        DATA.ipData[ip] = 1;
     }
 }
 
@@ -26,13 +26,13 @@ function setUserCount(user) {
     if (!user) {
         user = '-';
     }
-    if (data.userData[user]) {
-        var v = data.userData[user];
+    if (DATA.userData[user]) {
+        var v = DATA.userData[user];
         v++;
-        data.userData[user] = v;
+        DATA.userData[user] = v;
     }
     else {
-        data.userData[user] = 1;
+        DATA.userData[user] = 1;
     }
 }
 
@@ -40,13 +40,13 @@ function setOrgancount(oid) {
     if (!oid) {
         oid = '-';
     }
-    if (data.organData[oid]) {
-        var v = data.organData[oid];
+    if (DATA.organData[oid]) {
+        var v = DATA.organData[oid];
         v++;
-        data.organData[oid] = v;
+        DATA.organData[oid] = v;
     }
     else {
-        data.organData[oid] = 1;
+        DATA.organData[oid] = 1;
     }
 }
 
@@ -56,7 +56,7 @@ const DataService = {
         setIpCount(doc.ip);
         setUserCount(doc.user_id);
         setOrgancount(doc.oid);
-
+        let data = DATA.origin;
         let ipSegment = {};
         if (data[doc.ip]) {
             ipSegment = data[doc.ip];

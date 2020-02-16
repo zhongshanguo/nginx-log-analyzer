@@ -63,6 +63,7 @@
     var support = {};
 
 
+
     var
         version = "1.12.4",
 
@@ -577,7 +578,6 @@
         return type === "array" || length === 0 ||
             typeof length === "number" && length > 0 && (length - 1) in obj;
     }
-
     var Sizzle =
         /*!
  * Sizzle CSS Selector Engine v2.2.1
@@ -924,7 +924,6 @@
                     }
                     return (cache[key + " "] = value);
                 }
-
                 return cache;
             }
 
@@ -2100,7 +2099,6 @@
 // Easy API for creating new setFilters
             function setFilters() {
             }
-
             setFilters.prototype = Expr.filters = Expr.pseudos;
             Expr.setFilters = new setFilters();
 
@@ -2723,6 +2721,7 @@
         })(window);
 
 
+
     jQuery.find = Sizzle;
     jQuery.expr = Sizzle.selectors;
     jQuery.expr[":"] = jQuery.expr.pseudos;
@@ -2764,6 +2763,7 @@
     var rneedsContext = jQuery.expr.match.needsContext;
 
     var rsingleTag = (/^<([\w-]+)\s*\/?>(?:<\/\1>|)$/);
+
 
 
     var risSimple = /^.[^:#\[\.,]*$/;
@@ -3062,6 +3062,7 @@
 
             // Locate the position of the desired element
             return jQuery.inArray(
+
                 // If it receives a jQuery object, the first element is used
                 elem.jquery ? elem[0] : elem, this);
         },
@@ -3158,6 +3159,7 @@
         };
     });
     var rnotwhite = (/\S+/g);
+
 
 
 // Convert String-formatted options into Object-formatted ones
@@ -7381,7 +7383,6 @@
     function Tween(elem, options, prop, end, easing) {
         return new Tween.prototype.init(elem, options, prop, end, easing);
     }
-
     jQuery.Tween = Tween;
 
     Tween.prototype = {
@@ -8377,6 +8378,8 @@
     });
 
 
+
+
     var nodeHook, boolHook,
         attrHandle = jQuery.expr.attrHandle,
         ruseDefault = /^(?:checked|selected)$/i,
@@ -8967,6 +8970,8 @@
     });
 
 
+
+
 // Return jQuery for attributes-only inclusion
 
 
@@ -8995,6 +9000,7 @@
     var nonce = jQuery.now();
 
     var rquery = (/\?/);
+
 
 
     var rvalidtokens = /(,)|(\[|{)|(}|])|"(?:[^"\\\r\n]|\\["\\\/bfnrt]|\\u[\da-fA-F]{4})*"\s*:?|true|false|null|-?(?!0\d)\d+(?:\.\d+|)(?:[eE][+-]?\d+|)/g;
@@ -10354,6 +10360,8 @@
     }
 
 
+
+
 // Install script dataType
     jQuery.ajaxSetup({
         accepts: {
@@ -10441,6 +10449,8 @@
             };
         }
     });
+
+
 
 
     var oldCallbacks = [],
@@ -10534,6 +10544,8 @@
             return "script";
         }
     });
+
+
 
 
 // data: string of html
@@ -10957,6 +10969,7 @@
             return jQuery;
         });
     }
+
 
 
     var
