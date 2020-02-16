@@ -156,8 +156,9 @@ const DataService = {
     //     DATA = values;
     // },
     pushDB: (host, nginxAccessLog) => {
+        // console.log('start transform');
         let doc = entityUtil.transform2(nginxAccessLog);
-        console.log(doc);
+        // console.log(doc);
         db.push(doc);
         console.log(db.length);
     },

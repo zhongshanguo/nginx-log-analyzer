@@ -75,6 +75,7 @@ const EntityUtil = {
     //     return doc;
     // },
     transform2: (nginxAccessLog) => {
+        let doc = {};
         let log = nalParser(nginxAccessLog);
         log.location = geoUtil.getGeo(log.remote_addr);
         if (log.remote_addr) doc.ip = log.remote_addr;
