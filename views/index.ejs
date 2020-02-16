@@ -33,7 +33,11 @@
 <div>
     <% for(var i = 0;i < data.length;i++){
         var ipSegment = data[i]; %>
-    <h2><a href="/ip/<%= ipSegment.ip %>"><%= ipSegment.ip %></a></h2>
+    <h2><a href="/ip/<%= ipSegment.ip %>"><%= ipSegment.ip %></a>
+        <% if(ipSegment.location){ %>
+        <%= ipSegment.location %>
+        <% } %>
+    </h2>
     <% for(var m = 0;m < ipSegment.users.length; m++){ %>
     <% var user = ipSegment.users[m]; %>
     <h4><%= user.user_id %> </h4>

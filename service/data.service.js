@@ -1,57 +1,9 @@
 const entityUtil = require('../util/entity.util');
 const filterUtil = require('../util/filter.util');
-
-// let DATA = {
-//     ipData: {},
-//     userData: {},
-//     organData: {},
-//     origin: {}
-// };
+const cacheService = require('../util/cache.service');
 
 let db = [];
 
-// function setIpCount(ip) {
-//
-//     if (!ip) {
-//         ip = "-";
-//     }
-//     if (DATA.ipData[ip]) {
-//         var v = DATA.ipData[ip];
-//         v++;
-//         DATA.ipData[ip] = v;
-//     }
-//     else {
-//         DATA.ipData[ip] = 1;
-//     }
-// }
-//
-// function setUserCount(user) {
-//     if (!user) {
-//         user = '-';
-//     }
-//     if (DATA.userData[user]) {
-//         var v = DATA.userData[user];
-//         v++;
-//         DATA.userData[user] = v;
-//     }
-//     else {
-//         DATA.userData[user] = 1;
-//     }
-// }
-//
-// function setOrgancount(oid) {
-//     if (!oid) {
-//         oid = '-';
-//     }
-//     if (DATA.organData[oid]) {
-//         var v = DATA.organData[oid];
-//         v++;
-//         DATA.organData[oid] = v;
-//     }
-//     else {
-//         DATA.organData[oid] = 1;
-//     }
-// }
 
 function getIPUser(i, u) {
     let user = {};
@@ -124,7 +76,8 @@ function getIp(i) {
         users.push(user);
     }
     users.sort((a, b) => b.count - a.count);
-    return {ip: i, count: count, users: users};
+    let location = cacheService.get(`ip-${i}`);
+    return {ip: i, location: location, count: count, users: users};
 }
 
 const DataService = {
@@ -132,6 +85,7 @@ const DataService = {
         let doc = entityUtil.transform2(host, nginxAccessLog);
         if (filterUtil.pathFilter(doc)) {
             db.push(doc);
+            console.log(db.length);
         }
     },
     get: () => {

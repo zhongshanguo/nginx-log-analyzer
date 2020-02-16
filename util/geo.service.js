@@ -26,7 +26,12 @@ const GeoService = {
         }
     },
     getHostLink: (host) => {
-        console.log(host);
+        if (host == '::ffff:192.168.1.34') {
+            return "http://www.metel.cn";
+        }
+        if (host == '::ffff:192.168.1.180') {
+            return 'http://files.metel.cn';
+        }
         return "";
     }
 };
