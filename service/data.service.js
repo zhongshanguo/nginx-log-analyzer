@@ -3,8 +3,8 @@ const entityUtil = require('../util/entity.util');
 let data = {
     ipData: {},
     userData: {},
-    organData: {}
-
+    organData: {},
+    origin: {}
 };
 
 function setIpCount(ip) {

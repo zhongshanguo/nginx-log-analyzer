@@ -31,7 +31,7 @@
 <div>
     <button id="refresh_data_button">刷新数据</button>
 </div>
-<% for(var item in data) { var ipSegment = data[item]; %>
+<% for(var i = 0;i < data.length;i++) { var ipSegment = data[i]; %>
 <h2><%= item %></h2>
 <% for(var user in ipSegment) { if(user != 'location') { %>
 <h4><%= user %></h4>
@@ -46,7 +46,6 @@
     </span>
     <span>
         课程数:
-
     </span>
 </div>
 <% }} %>

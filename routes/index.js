@@ -11,7 +11,13 @@ router.post('/', function (req, res, next) {
 
 router.get('/', function (req, res, next) {
     let data = dataServer.get();
-    res.render('index', {data: data});
+    let ips = [];
+    for (var p in data.ipData) {
+        ips.push(p, {count: data.ipData[p], data: data.origin[p]});
+    }
+    ips.sort((a, b) => b.count - a.count);
+
+    res.render('index', {data: ips});
 });
 
 router.get('/data', function (req, res, next) {
