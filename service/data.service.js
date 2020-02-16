@@ -1,10 +1,56 @@
 const entityUtil = require('../util/entity.util');
 
 let data = {};
+let ipData = {};
+let userData = {};
+let organData = {};
+
+function setIpCount(ip) {
+    if (!ip) {
+        ip = "-";
+    }
+    if (ipData[ip]) {
+        var v = ipData[ip];
+        v++;
+        ipData[ip] = v;
+    }
+    else {
+        ipData[ip] = 1;
+    }
+}
+
+function setUserCount(user) {
+    if (!user) {
+        user = '-';
+    }
+    if (userData[user]) {
+        var v = userData[user];
+        v++;
+        userData[user] = v;
+    }
+    else {
+        userData[user] = 1;
+    }
+}
+
+function setOrgancount(oid) {
+    if (!oid) {
+        oid = '-';
+    }
+    if (organData[oid]) {
+        var v = organData[oid];
+        v++;
+        organData[oid] = v;
+    }
+    else {
+        organData[oid] = 1;
+    }
+}
+
 const DataService = {
     push: (host, nginxAccessLog) => {
-
         var doc = entityUtil.transform(nginxAccessLog);
+        setIpCount(doc.ip);
 
         let ipSegment = {};
         if (data[doc.ip]) {
@@ -95,6 +141,9 @@ const DataService = {
     },
     get: () => {
         return data;
+    },
+    set: (values) => {
+        data = values;
     }
 };
 module.exports = DataService;

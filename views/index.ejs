@@ -28,7 +28,9 @@
 </head>
 <body>
 <h1>用户列表</h1>
-
+<div>
+    <button id="refresh_data_button">刷新数据</button>
+</div>
 <% for(var item in data) { var ipSegment = data[item]; %>
 <h2><%= item %></h2>
 <% for(var user in ipSegment) { if(user != 'location') { %>
@@ -51,3 +53,5 @@
 <% } %>
 </body>
 </html>
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/pages/home.js"></script>
