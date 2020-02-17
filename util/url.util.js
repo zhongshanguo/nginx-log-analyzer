@@ -3,15 +3,16 @@ const UrlUtil = {
         if (!log || !log.path) {
             return "";
         }
-        let pos = log.path.indexOf('rno=');
-        if (pos > 0) {
-            return log.path.substring(pos + 4, pos + 40);
-        }
+        // let pos = log.path.indexOf('rno=');
+        // if (pos > 0) {
+        //     return log.path.substring(pos + 4, pos + 40);
+        // }
         let m = log.path.match(/(?<rno>[\da-f]{8}\-[\da-f]{4}\-[\da-f]{4}\-[\da-f]{4}\-[\da-f]{12})/i);
         if (m) {
-            if (log.path.indexOf('/note/') == -1) {
-                return m["groups"]["rno"];
+            if (log.path.indexOf('/note/') > -1) {
+                return "";
             }
+            return m["groups"]["rno"];
         }
         return "";
     },
