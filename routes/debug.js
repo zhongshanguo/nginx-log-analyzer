@@ -7,7 +7,7 @@ router.get('/pull/data', function (req, res, next) {
     fetch.get({url: `http://221.122.57.34:39999/data`, data: null, traceId: 'tid'})
         .then((data) => {
             dataServer.set(data);
-            res.json({message: 'ok'});
+            res.json({count: data.length, message: 'ok'});
         })
         .catch((err) => {
             res.status(500);
