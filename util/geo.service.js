@@ -3,7 +3,7 @@ const cacheService = require('../util/cache.service');
 
 const GeoService = {
     getGeo: (ip) => {
-        let c = cacheService.get(`ip-${ip}`);
+        let c = cacheService.get(`ip-loc-${ip}`);
         if (c) {
             return Promise.resolve(c);
         }
@@ -13,7 +13,7 @@ const GeoService = {
                 .then((data) => {
                     if (data && !data.code) {
                         let geo = `${data.data.country}${data.data.region}${data.data.city} (${data.data.isp})`;
-                        cacheService.set(`ip-${ip}`, geo);
+                        cacheService.set(`ip-loc-${ip}`, geo);
                         return Promise.resolve(geo);
                     }
                 })

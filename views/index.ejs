@@ -13,10 +13,16 @@
         <% if(ipSegment.location){ %>
         <%= ipSegment.location %>
         <% } %>
+        <% if(ipSegment.oid) { %>
+        <%= ipSegment.oid %>
+        <% } %>
+        <% if(ipSegment.organ) { %>
+        <%= ipSegment.organ %>
+        <% } %>
     </div>
     <% for(var m = 0;m < ipSegment.users.length; m++){ %>
     <% var user = ipSegment.users[m]; %>
-    <h4><%= user.user_id %> </h4>
+    <h4><%= user.user_id %> <span class="user-name-line"><%= user.name %></span></h4>
     <div class="user-line">
         count=<%= user.count %>
         <% if(user.role){ %>

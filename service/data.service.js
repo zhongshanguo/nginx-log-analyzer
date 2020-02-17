@@ -1,11 +1,11 @@
 const entityUtil = require('../util/entity.util');
 const filterUtil = require('../util/filter.util');
 const cacheService = require('../util/cache.service');
+const userService = require('../service/user.service');
 
 let db = [];
 
-
-function getIPUser(i, u) {
+async function getIPUser(i, u) {
     let user = {};
     // 每个 userId有多少条数据
     let events = db.filter(d => d.ip == i && d.user_id == u);
@@ -56,10 +56,16 @@ function getIPUser(i, u) {
     user.mp4 = user.filenames.filter(f => f.mp4).length;
     user.mp3 = user.filenames.filter(f => f.mp3).length;
     user.pdf = user.filenames.filter(f => f.pdf).length;
+    if (user.user_id && user.user_id != '-' && user.role && user.role > 2) {
+        user.name = cacheService.get(`uid-user-${user.user_id}`);
+        if (!user.name) {
+            user.name = await userService.getUser(user.user_id);
+        }
+    }
     return user;
 }
 
-function getIp(i) {
+async function getIp(i) {
     // 这个ip下的所有用户数据
     let users = [];
 
@@ -70,13 +76,25 @@ function getIp(i) {
     let count = 0;
     // 收集每个user_id数据
     for (let u of userSet) {
-        let user = getIPUser(i, u);
+        let user = await getIPUser(i, u);
         count += user.count;
         users.push(user);
     }
     users.sort((a, b) => b.count - a.count);
-    let location = cacheService.get(`ip-${i}`);
-    return {ip: i, location: location, count: count, users: users};
+    let location = cacheService.get(`ip-loc-${i}`);
+    let oid = cacheService.get(`ip-oid-${i}`);
+    let organ = '';
+    if (!oid) {
+        oid = await userService.getOid(i);
+    }
+    // let organ = '';
+    if (oid) {
+        organ = cacheService.get(`oid-organ-${oid}`);
+        if (!organ) {
+            organ = await userService.getOrgan(oid);
+        }
+    }
+    return {ip: i, location: location, oid: oid, organ: organ, count: count, users: users};
 }
 
 const DataService = {
@@ -92,7 +110,7 @@ const DataService = {
     set: (data) => {
         db = data;
     },
-    getByIp: () => {
+    getByIp: async () => {
         // 最终返回的数据
         let ips = [];
         // 所有ip的集合
@@ -100,13 +118,13 @@ const DataService = {
         db.forEach(d => s.add(d.ip));
         // 收集每个ip的数据
         for (let i of s) {
-            let ipContent = getIp(i);
+            let ipContent = await getIp(i);
             ips.push(ipContent);
         }
         return ips;
     },
-    getFilterIp: (ip) => {
-        let ipContent = getIp(ip);
+    getFilterIp: async (ip) => {
+        let ipContent = await getIp(ip);
         let ipData = db.filter(d => d.ip == ip && !d.play);
         ipData.sort((a, b) => b.time - a.time);
         return {ipContent, ipData};

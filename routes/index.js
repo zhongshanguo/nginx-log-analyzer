@@ -12,15 +12,15 @@ router.post('/', function (req, res, next) {
 });
 
 // 按ip排
-router.get('/', function (req, res, next) {
-    let data = dataServer.getByIp();
+router.get('/', async function (req, res, next) {
+    let data = await dataServer.getByIp();
     data.sort((a, b) => b.count - a.count);
     res.render('index', {data: data});
 });
 
 router.get('/ip/:ip', async (req, res, next) => {
     let ip = req.params.ip;
-    let data = dataServer.getFilterIp(ip);
+    let data = await dataServer.getFilterIp(ip);
     let location = await geoService.getGeo(ip);
     res.render('ip', {
         data: {
