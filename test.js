@@ -2,9 +2,9 @@ const util = require('./util/url.util');
 
 const test = {
     testFilename: (log) => {
-        let name = util.getFileName(log);
+        let name = util.getRno(log);
         console.log(name);
     }
 };
 
-test.testFilename({path: '/3/34c7da6a-8bb7-405a-aa76-a567cf03f60e/190312112156595960617.pdf'});
+test.testFilename({path: '/course/98914959-b1a6-4f40-9c3a-6273a1f82278?from=Home'});

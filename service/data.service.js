@@ -2,6 +2,7 @@ const entityUtil = require('../util/entity.util');
 const filterUtil = require('../util/filter.util');
 const cacheService = require('../util/cache.service');
 const userService = require('../service/user.service');
+const locationService = require('../service/location.service');
 
 let db = [];
 
@@ -81,7 +82,8 @@ async function getIp(i) {
         users.push(user);
     }
     users.sort((a, b) => b.count - a.count);
-    let location = cacheService.get(`ip-loc-${i}`);
+    // let location = cacheService.get(`ip-loc-${i}`);
+    let location = locationService.getLoc(i);
     let oid = cacheService.get(`ip-oid-${i}`);
     let organ = '';
     if (!oid) {
